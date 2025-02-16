@@ -1,12 +1,15 @@
+import streamlit as st
 import networkx as nx
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
-from collections import defaultdict
 import pandas as pd
 import numpy as np
 
-# Reload the corrected CSV
-df_corrected = pd.read_csv("/content/symmetric_matrix.csv", index_col=0)
+st.title("Social Network Analysis - Interactive Graph Visualization")
+
+# Load CSV file
+csv_path = "symmetric_matrix.csv"
+df_corrected = pd.read_csv(csv_path, index_col=0)
 
 # Extract country information from node labels
 nodes = df_corrected.index.tolist()
@@ -41,7 +44,7 @@ for edge in G.edges():
     edge_x.extend([x0, x1, None])
     edge_y.extend([y0, y1, None])
 
-edge_trace = go.Scatter(x=edge_x, y=edge_y, line=dict(width=0.5, color='#888'),
+tedge_trace = go.Scatter(x=edge_x, y=edge_y, line=dict(width=0.5, color='#888'),
                         hoverinfo='none', mode='lines')
 
 node_x, node_y, node_color, node_text = [], [], [], []
@@ -74,5 +77,5 @@ fig.update_layout(showlegend=True, hovermode='closest',
                   xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
                   yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
 
-# Show interactive plot
-fig.show()
+# Show interactive plot in Streamlit
+st.plotly_chart(fig)
