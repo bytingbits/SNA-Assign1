@@ -33,10 +33,10 @@ for i, node1 in enumerate(nodes):
         if df_corrected.iloc[i, j] > 0 and i < j:  # To avoid duplicate edges
             G.add_edge(node1, node2)
 
-# Get positions for nodes using force-directed layout
+# Node pos
 pos = nx.spring_layout(G, seed=42)
 
-# Extract edge and node trace data for Plotly visualization
+# Trace edges and nodes on plotly
 edge_x, edge_y = [], []
 for edge in G.edges():
     x0, y0 = pos[edge[0]]
